@@ -132,7 +132,6 @@ public class PromptActivity extends AppCompatActivity {
     }
 
     private void returnToCategories() {
-        // Finish the current activity to go back to the main activity
         finish();
     }
 
