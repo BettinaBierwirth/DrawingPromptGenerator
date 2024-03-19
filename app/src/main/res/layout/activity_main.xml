@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    android:background="@color/dark_grey"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:fontFamily="@font/indonesia_script"
+        android:text="@string/drawing_prompt_generator" />
+
+    <View
+        android:id="@+id/horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="8dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontal_line"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:fontFamily="@font/sanchez_regular"
+        android:text="@string/choose_a_category" />
+
+
+    <Button
+        android:id="@+id/category_flora"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"
+        android:text="@string/flora" />
+
+    <Button
+        android:id="@+id/category_fauna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_flora"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"
+        android:text="@string/fauna" />
+
+    <Button
+        android:id="@+id/category_landscape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_fauna"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"
+        android:text="@string/landscape" />
+
+    <Button
+        android:id="@+id/category_cityscape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_landscape"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"
+        android:text="@string/cityscape" />
+
+    <Button
+        android:id="@+id/category_situation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_cityscape"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"
+        android:text="@string/situation" />
+
+    <Button
+        android:id="@+id/category_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_situation"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"
+        android:text="@string/just_one_word" />
+
+
+</RelativeLayout>

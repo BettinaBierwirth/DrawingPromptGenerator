@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PromptActivity"
+    android:background="@color/dark_grey"
+    android:padding="30dp">
+
+    <Button
+        android:id="@+id/return_to_categories"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/return_to_category_selection" />
+
+    <TextView
+        android:id="@+id/selected_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/return_to_categories"
+        android:textSize="28sp"
+        android:text="@string/category_title"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"/>
+
+    <View
+        android:id="@+id/horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/selected_category"
+        android:layout_marginTop="8dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generated_prompt"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:layout_below="@+id/horizontal_line"
+        android:textSize="20sp"
+        android:fontFamily="@font/sanchez_italic"
+        android:textAlignment="center"
+        android:lineSpacingExtra="6dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/download_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/download_image"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_below="@id/prompt"
+        android:layout_centerHorizontal="true"/>
+
+
+    <Button
+        android:id="@+id/regenerate_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_alignParentBottom="true"
+        android:text="@string/generate_prompt"
+        android:layout_centerHorizontal="true"/>
+
+
+
+</RelativeLayout>

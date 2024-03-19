@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Drawing Prompt Generator</string>
+    <string name="no_prompts_available_for_this_category">No prompts available for this category.</string>
+    <string name="return_to_category_selection">return to category selection</string>
+    <string name="category_title">Category Title</string>
+    <string name="generated_prompt">generated prompt</string>
+    <string name="generate_prompt">Generate prompt</string>
+    <string name="drawing_prompt_generator">Drawing Prompt Generator</string>
+    <string name="flora">flora</string>
+    <string name="fauna">fauna</string>
+    <string name="landscape">landscape</string>
+    <string name="cityscape">cityscape</string>
+    <string name="situation">situation</string>
+    <string name="just_one_word">just one word</string>
+    <string name="choose_a_category">Choose a category:</string>
+    <string name="download_image">Download Image</string>
+    <string name="visual">visual</string>
+</resources>
