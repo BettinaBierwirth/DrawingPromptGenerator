@@ -1,11 +1,12 @@
 package com.bettinabierwirth.drawingpromptgenerator;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,20 +19,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 public class PromptActivity extends AppCompatActivity {
+
 
     private TextView promptTextView;
     private List<String> prompts;
     private List<String> displayedPrompts;
+    private Bitmap promptBitmap;
+    private ActivityResultLauncher<Intent> saveImageLauncher;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +75,17 @@ public class PromptActivity extends AppCompatActivity {
         Button downloadButton = findViewById(R.id.download_button);
         downloadButton.setOnClickListener(v -> savePromptImage());
 
+        // Initialize the saveImageLauncher
+        saveImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                // Handle the result here
+                Intent data = result.getData();
+                saveImage(data);
+            } else {
+                Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void loadPromptsFromJson(String category) {
@@ -100,8 +117,12 @@ public class PromptActivity extends AppCompatActivity {
             bufferedReader.close();
             inputStream.close();
 
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e("PromptActivity", "IOException while loading prompts from JSON: " + e.getMessage());
+            Toast.makeText(this, "Failed to load prompts. Please try again.", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            Log.e("PromptActivity", "JSONException while parsing JSON: " + e.getMessage());
+            Toast.makeText(this, "Failed to parse JSON. Please try again.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -137,7 +158,7 @@ public class PromptActivity extends AppCompatActivity {
 
     private void savePromptImage() {
         promptTextView.setDrawingCacheEnabled(true);
-        Bitmap promptBitmap = Bitmap.createBitmap(promptTextView.getWidth(), promptTextView.getHeight(), Bitmap.Config.ARGB_8888);
+        promptBitmap = Bitmap.createBitmap(promptTextView.getWidth(), promptTextView.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(promptBitmap);
         canvas.drawColor(Color.WHITE);
 
@@ -153,45 +174,37 @@ public class PromptActivity extends AppCompatActivity {
         // Reset the text color to the original color
         promptTextView.setTextColor(currentTextColor);
 
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_TITLE, "prompt_image.jpg");
+
+        // Launch the saveImageLauncher
+        saveImageLauncher.launch(intent);
+    }
+
+
+    private void saveImage(Intent data) {
+        // Handle saving the image here
         try {
-            File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            String filename = getNextFilename(directory);
-            File file = new File(directory, filename);
+            OutputStream outputStream = getContentResolver().openOutputStream(Objects.requireNonNull(data.getData()));
+            if (outputStream != null) {
+                // Save the bitmap to the output stream
+                this.promptBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                outputStream.close();
 
-            FileOutputStream fos = new FileOutputStream(file);
-
-            // Save the bitmap as JPEG
-            promptBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-
-            // Show a Toast message with the saved image path
-            String message = "Image saved successfully. Path: " + file.getAbsolutePath();
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                // Show a Toast message with the saved image path
+                String message = "Image saved successfully. Path: " + data.getData().toString();
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Failed to open output stream", Toast.LENGTH_SHORT).show();
+            }
         } catch (IOException e) {
-            e.printStackTrace();
-            // Notify the user if there's an error saving the image
+            Log.e("PromptActivity", "IOException while saving image: " + e.getMessage());
             Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private String getNextFilename(File directory) {
-        int imageCount = countSavedImages(directory);
-        return "prompt_image_" + (imageCount + 1) + ".jpg";
-    }
-
-    private int countSavedImages(File directory) {
-        int count = 0;
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isFile() && file.getName().startsWith("prompt_image_") && file.getName().endsWith(".jpg")) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
 
 }
 

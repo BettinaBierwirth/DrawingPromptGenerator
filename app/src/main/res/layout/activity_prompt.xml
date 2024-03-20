@@ -54,12 +54,21 @@
 
     <Button
         android:id="@+id/download_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/download_image"
         android:fontFamily="@font/sanchez_regular"
-        android:layout_below="@id/prompt"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/horizontal_line_bottom"
         android:layout_centerHorizontal="true"/>
+
+    <View
+        android:id="@+id/horizontal_line_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/regenerate_prompt"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white" />
 
 
     <Button
