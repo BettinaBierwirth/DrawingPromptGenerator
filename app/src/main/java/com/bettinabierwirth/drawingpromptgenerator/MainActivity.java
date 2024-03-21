@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Button cityscapeButton = findViewById(R.id.category_cityscape);
         Button situationButton = findViewById(R.id.category_situation);
         Button wordButton = findViewById(R.id.category_word);
+        Button stoneButton = findViewById(R.id.category_precious_stones);
 
         // Set click listeners for category buttons
         floraButton.setOnClickListener(v -> startPromptActivity("flora"));
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         situationButton.setOnClickListener(v -> startPromptActivity("situation"));
 
         wordButton.setOnClickListener(v -> startPromptActivity("word"));
+
+        stoneButton.setOnClickListener(v -> startPromptActivity("precious stones"));
 
     }
 

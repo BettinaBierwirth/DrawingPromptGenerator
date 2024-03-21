@@ -94,5 +94,14 @@
         android:layout_centerHorizontal="true"
         android:text="@string/just_one_word" />
 
+    <Button
+        android:id="@+id/category_precious_stones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_word"
+        android:fontFamily="@font/sanchez_regular"
+        android:layout_centerHorizontal="true"
+        android:text="@string/precious_stones" />
+
 
 </RelativeLayout>
